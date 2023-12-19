@@ -3,6 +3,7 @@ import { Layout, Menu, theme } from 'antd';
 import { ItemType } from 'antd/es/menu/hooks/useItems';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from 'enums';
+import './BaseLayout.scss'
 
 const { Header, Content, Footer } = Layout;
 
@@ -48,7 +49,7 @@ export const BaseLayout: FC<BaseLayoutProps> = ({ children }) => {
           onClick={(item) => handleClick(item)}
         />
       </Header>
-      <Content style={{ padding: '0 48px' }}>
+      <Content className='layout-content'>
         <div
           style={{
             marginTop: 16,

@@ -1,0 +1,15 @@
+.layout-content {
+  padding: 0 48px;
+
+  @media (max-width: 1200px) {
+    padding: 0 30px;
+  }
+
+  @media (max-width: 600px) {
+    padding: 0 15px;
+  }
+
+  @media (max-width: 450px) {
+    padding: 0;
+  }
+}
