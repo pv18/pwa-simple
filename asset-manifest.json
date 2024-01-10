@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "https://pv18.github.io/pwa-simple/static/css/main.90860925.css",
-    "main.js": "https://pv18.github.io/pwa-simple/static/js/main.883c54ba.js",
+    "main.js": "https://pv18.github.io/pwa-simple/static/js/main.bc398d9b.js",
     "service-worker.js": "https://pv18.github.io/pwa-simple/service-worker.js",
     "index.html": "https://pv18.github.io/pwa-simple/index.html",
     "main.90860925.css.map": "https://pv18.github.io/pwa-simple/static/css/main.90860925.css.map",
-    "main.883c54ba.js.map": "https://pv18.github.io/pwa-simple/static/js/main.883c54ba.js.map"
+    "main.bc398d9b.js.map": "https://pv18.github.io/pwa-simple/static/js/main.bc398d9b.js.map"
   },
   "entrypoints": [
     "static/css/main.90860925.css",
-    "static/js/main.883c54ba.js"
+    "static/js/main.bc398d9b.js"
   ]
 }
