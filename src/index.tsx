@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import { App } from 'App';
 import './index.css';
+import { useOnline } from 'hooks';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

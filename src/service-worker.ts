@@ -11,8 +11,13 @@ import { clientsClaim } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
-import { StaleWhileRevalidate,CacheFirst } from 'workbox-strategies';
-import { CacheableResponsePlugin } from 'workbox-cacheable-response'
+import {
+  StaleWhileRevalidate,
+  CacheFirst,
+  NetworkFirst,
+  CacheOnly,
+} from 'workbox-strategies';
+import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -57,7 +62,8 @@ registerRoute(
 // precache, в этом случае то же происхождение . png запросы, как те из в общественных/
 registerRoute(
   // При необходимости добавляйте любые другие расширения файлов или критерии маршрутизации.
-  ({ url }) => url.origin === self.location.origin && url.pathname.endsWith('.png'),
+  ({ url }) =>
+    url.origin === self.location.origin && url.pathname.endsWith('.png'),
   // Настройте эту стратегию по мере необходимости, например, перейдя на CacheFirst.
   new StaleWhileRevalidate({
     cacheName: 'images',
@@ -77,24 +83,32 @@ self.addEventListener('message', (event) => {
   }
 });
 
-
 // Любая другая пользовательская рабочая логика обслуживания может пойти здесь.
+
+// Если режим online то стратегия NetworkFirst если offline то CacheOnly
 registerRoute(
-    ({ url }) =>  {
-        console.log('self.location.origin',self.location.origin)
-        console.log('url.origin',url.origin)
-        return  url.origin === self.location.origin
-},
-    new CacheFirst({
-        cacheName: 'stories',
-        plugins: [
-            new ExpirationPlugin({
-                maxEntries: 50,
-                maxAgeSeconds: 5 * 60 // 5 минут
-            }),
-            new CacheableResponsePlugin({
-                statuses: [0, 200]
-            })
-        ]
-    })
-)
+  ({ url }) => {
+    console.log('NetworkFirst');
+    return url.origin === process.env.REACT_APP_BASE_URL && navigator.onLine;
+  },
+  new NetworkFirst({
+    cacheName: 'stories',
+    plugins: [
+      new ExpirationPlugin({
+        maxEntries: 50,
+        maxAgeSeconds: 5 * 60, // 5 минут
+      }),
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+    ],
+  })
+);
+
+registerRoute(
+  ({ url }) => {
+    console.log('CacheOnly');
+    return url.origin === process.env.REACT_APP_BASE_URL && !navigator.onLine;
+  },
+  new CacheOnly({ cacheName: 'stories' })
+);

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseAuth = 'https://jsonplaceholder.typicode.com';
+const baseAuth = process.env.REACT_APP_BASE_URL;
 
 export const authServiceClient = axios.create({
   baseURL: baseAuth,

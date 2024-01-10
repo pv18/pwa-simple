@@ -3,7 +3,8 @@ import { Layout, Menu, theme } from 'antd';
 import { ItemType } from 'antd/es/menu/hooks/useItems';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from 'enums';
-import './BaseLayout.scss'
+import './BaseLayout.scss';
+import { useOnline } from 'hooks';
 
 const { Header, Content, Footer } = Layout;
 
@@ -48,6 +49,9 @@ export const BaseLayout: FC<BaseLayoutProps> = ({ children }) => {
           style={{ flex: 1, minWidth: 0 }}
           onClick={(item) => handleClick(item)}
         />
+        <div style={{ color: `${useOnline() ? 'green' : 'red'}` }}>
+          {useOnline() ? 'online' : 'offline'}
+        </div>
       </Header>
       <Content className='layout-content'>
         <div
